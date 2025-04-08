@@ -1,11 +1,32 @@
 .title {
     font-weight: 700;
+    text-transform: uppercase;
+
 
     &.m {
         font-size: 64px;
+
+        &.offset {
+            margin-bottom: 20px;
+        }
     }
 
     &.l {
         font-size: 80px;
     }
+
+    &.red-gradient {
+        background: linear-gradient(180deg, #631012 0%, #C01F23 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.black-2 {
+    color: var(--color-black-secondary);
+}
+
+.wrap {
+    word-break: break-word;
+    white-space: normal;
 }

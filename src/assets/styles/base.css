@@ -1,8 +1,17 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
 
-
+  --color-white: rgb(255, 255, 255);
+  --color-black-primary: rgba(38, 38, 38, 1);
+  --color-black-secondary: rgba(79, 79, 79, 1);
   --container-padding: 80px;
+
+
+  --z-index-battle-mark: 5;
+  --z-index-battle-description: 5;
+  --z-index-popup-description-short: 10;
+  --z-index-popup-description-full: 10;
+
 
 }
 
@@ -19,19 +28,27 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
+  color: var(--color-black-primary);
   background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:'Roboto Slab', serif;
-  font-size: 15px;
+
+  font-family: 'Roboto Slab', serif;
+  font-size: 32px;
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-p{
-  font-size: 32px;
+main {
+  position: relative;
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
 }

@@ -2,21 +2,30 @@
     <div :style="sizes" class="map">
         <MapLogo />
         <img src="/map.png" draggable="false" class="map-img" />
-        <span v-for="({ x, y }, index) in points" :key="index" class="map-battle"
-            :style="{ left: `${x}%`, top: `${y}%` }">
-            <BattleIcon />
+        <span v-for="(battle, index) in battleStore.battles.value" :key="index" @click="chooseBattleHandler(battle)"
+            class="map-battle" :style="getBattlePositionStyle(battle.location)">
+            <MapBattlePoint />
         </span>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import BattleIcon from '@/assets/icons/BattleIcon.vue';
-import { useCounterStore } from '@/stores/counter';
+import { useBattlesStore, useCounterStore, useFlowsStore } from '@/stores/counter';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import MapLogo from './ui/MapLogo.vue';
+import MapBattlePoint from './ui/MapBattlePoint.vue';
+import { parseCoords } from '@/utils/parseCoords';
 
 const store = storeToRefs(useCounterStore())
+const battleStore = storeToRefs(useBattlesStore())
+const { chooseBattleHandler } = useFlowsStore()
+
+const getBattlePositionStyle = (location: string) => {
+    const [x, y] = parseCoords(location)
+    return { left: `${x}`, top: `${y}` }
+}
 
 
 const points = [{
