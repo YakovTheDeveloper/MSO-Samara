@@ -1,7 +1,7 @@
 <template>
     <div v-if="currentBattle" :class="classes">
         <header class="battle-description-short__heading" :style="{
-            backgroundImage: `url(${headingBgImg})`
+            backgroundImage: `url(${headingImgUrl})`
         }">
             <h1 class="title m red-gradient battle-description-short__heading-title">
                 {{ currentBattle.title }}
@@ -10,12 +10,12 @@
         <span class="battle-description-short__heading-decoration" />
         <div class="battle-description-short__main">
             <h2 class="title m black-2">Описание битвы</h2>
-            <p class="battle-description-short__main-text">
+            <p class="battle-description-short__main-text scrollbar">
                 {{ currentBattle.description }}
             </p>
         </div>
         <div class="battle-description-short__actions">
-            <button @click="closePopup">
+            <button @click="backHandler">
                 <CloseIcon />
                 Закрыть
             </button>
@@ -26,20 +26,34 @@
 
 <script setup>
 import CloseIcon from '@/assets/icons/CloseIcon.vue';
-import { SHORT_DESCRIPTION } from '@/mock';
 import { computed } from 'vue';
 import headingBgImg from '@/assets/img/short-description-mock-heading-pictire.png'
-import { useBattlesStore, usePopupStore } from '@/stores/counter';
+import { useBattlesStore, useFlowsStore, usePopupStore } from '@/stores/counter';
 import { storeToRefs } from 'pinia';
+import { getServerImgUrl } from '@/utils/getServerImgUrl';
+import { isBeforeOrAfterYAxis } from '@/utils/isBeforeOrAfterYAxis';
+import { parseCoords } from '@/utils/parseCoords';
+import { MAP_WIDTH } from '@/constants';
 
 const { currentBattle } = storeToRefs(useBattlesStore())
 
-const { closePopup, setCurrentPopup } = usePopupStore()
-const classes = computed(() => ({
-    'battle-description-short': true,
-    'battle-description-short_right': true,
+const headingImgUrl = computed(() => {
+    const imgUrl = currentBattle.value.images[0]?.image
+    if (!imgUrl) return ''
+    return getServerImgUrl(imgUrl)
+})
 
-}))
+const { setCurrentPopup } = usePopupStore()
+const { backHandler } = useFlowsStore()
+
+const classes = computed(() => {
+    const coords = parseCoords(currentBattle.value.location)
+    const position = isBeforeOrAfterYAxis(coords, MAP_WIDTH)
+    return [
+        'battle-description-short',
+        `battle-description-short_${position}`
+    ]
+})
 </script>
 
 <style lang="scss" scoped>
@@ -47,11 +61,8 @@ const classes = computed(() => ({
     position: fixed;
     top: 0;
     width: 1200px;
-    height: 2160px;
+    height: min(100vh, 2160px);
     z-index: var(--z-index-battle-description);
-    // width: 31.25vw;
-    // width: 31.25%;
-    // height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -60,7 +71,9 @@ const classes = computed(() => ({
     background: url('@/assets/img/short-description-bg.png') no-repeat;
     background-color: transparent;
 
-    &_left {}
+    &_left {
+        left: var(--container-padding);
+    }
 
     &_right {
         right: var(--container-padding);
@@ -71,6 +84,8 @@ const classes = computed(() => ({
         height: 675px;
         z-index: 1;
         background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
         mask-image: url('@/assets/img/short-description-mask.png');
         mask-repeat: no-repeat;
         mask-position: bottom;

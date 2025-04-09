@@ -1,15 +1,17 @@
 <template>
-    <div :style="sizes" class="map">
+    <div :style="sizes" class="map" @mousedown="startDrag" @mousemove="dragImage" @mouseup="stopDrag"
+        @mouseleave="stopDrag">
         <MapLogo />
         <img src="/map.png" draggable="false" class="map-img" />
         <span v-for="(battle, index) in battleStore.battles.value" :key="index" @click="chooseBattleHandler(battle)"
             class="map-battle" :style="getBattlePositionStyle(battle.location)">
-            <MapBattlePoint />
+            <MapBattlePoint :is-active="battle.id === battleStore.currentBattle.value?.id" />
         </span>
     </div>
 </template>
 
 <script setup lang="ts">
+
 import BattleIcon from '@/assets/icons/BattleIcon.vue';
 import { useBattlesStore, useCounterStore, useFlowsStore } from '@/stores/counter';
 import { storeToRefs } from 'pinia';
@@ -17,30 +19,34 @@ import { computed } from 'vue';
 import MapLogo from './ui/MapLogo.vue';
 import MapBattlePoint from './ui/MapBattlePoint.vue';
 import { parseCoords } from '@/utils/parseCoords';
+import { MAP_HEIGHT, MAP_WIDTH } from '@/constants';
+import { useDrag } from './composable/useDrag';
+
+const { startDrag, dragImage, stopDrag, imageStyles } = useDrag();
 
 const store = storeToRefs(useCounterStore())
 const battleStore = storeToRefs(useBattlesStore())
 const { chooseBattleHandler } = useFlowsStore()
 
 const getBattlePositionStyle = (location: string) => {
-    const [x, y] = parseCoords(location)
-    return { left: `${x}`, top: `${y}` }
-}
+    const [x, y] = parseCoords(location);
+    const percentTop = (x / MAP_HEIGHT) * 100
+    const percentLeft = (y / MAP_WIDTH) * 100
 
-
-const points = [{
-    x: 10,
-    y: 10
-}, {
-    x: 70,
-    y: 20
-}]
+    return {
+        left: `${percentLeft}%`,
+        top: `${percentTop}%`
+    };
+};
 
 const sizes = computed(() => {
     return {
-        width: `${100 * store.sizeCoefficient.value}%`,
-        height: `${100 * store.sizeCoefficient.value}%`
-    };
+        transform: `scale(${1 * store.sizeCoefficient.value})`
+    }
+    // return {
+    //     width: `${100 * store.sizeCoefficient.value}%`,
+    //     height: `${100 * store.sizeCoefficient.value}%`
+    // };
 });
 
 </script>
@@ -73,6 +79,7 @@ const sizes = computed(() => {
     &-battle {
         position: absolute;
         z-index: 3;
+        transform: translate(-50%, -50%);
     }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
     <div class="map-scale-controls">
-        <ControlButton @click="increment">
+        <ControlButton @click="increment" size="big" variant="square">
             <PlusIcon />
         </ControlButton>
-        <ControlButton @click="decrement">
+        <ControlButton @click="decrement" size="big" variant="square">
             <MinusIcon />
         </ControlButton>
     </div>
