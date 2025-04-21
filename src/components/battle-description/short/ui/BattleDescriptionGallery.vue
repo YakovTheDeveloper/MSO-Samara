@@ -6,9 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Scrollbar, Navigation } from 'swiper/modules'
 import { onMounted, ref, watch } from 'vue'
 import type { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
-import ControlButton from '@/components/ui/control-button/ControlButton.vue'
-import ArrowLeftIcon from '@/assets/icons/ArrowLeftIcon.vue'
-import ArrowRightIcon from '@/assets/icons/ArrowRightIcon.vue'
+
 
 const props = defineProps<{
     slides: { image: string; id: number }[],
@@ -87,7 +85,7 @@ onMounted(() => {
 <template>
     <div class="swiper-wrapper">
         <Swiper @swiper="onSwiper" @slide-change="onSlideChange" ref="swiperRef" :modules="[Scrollbar, Navigation]"
-            :breakpoints="breakpoints" :navigation="navigation">
+            :breakpoints="breakpoints" :navigation="navigation" :loop="true">
             <SwiperSlide v-for="slide in slides" :key="slide.id">
                 <slot name="slide" :slide="slide">
                     <!-- Fallback content if slot isn't provided -->
@@ -97,12 +95,12 @@ onMounted(() => {
                 </slot>
             </SwiperSlide>
         </Swiper>
-        <ControlButton size="small" variant="square" ref="prevButtonRef" :class="['custom-prev']">
+        <!-- <ControlButton size="small" variant="square" ref="prevButtonRef" :class="['custom-prev']">
             <ArrowLeftIcon />
         </ControlButton>
         <ControlButton size="small" variant="square" ref="nextButtonRef" :class="['custom-next']">
             <ArrowRightIcon />
-        </ControlButton>
+        </ControlButton> -->
     </div>
 </template>
 

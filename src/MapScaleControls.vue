@@ -1,18 +1,16 @@
 <template>
     <div class="map-scale-controls">
-        <ControlButton @click="increment" size="big" variant="square">
-            <PlusIcon />
-        </ControlButton>
-        <ControlButton @click="decrement" size="big" variant="square">
-            <MinusIcon />
-        </ControlButton>
+        <button @click="increment">
+
+        </button>
+        <button @click="decrement">
+
+        </button>
     </div>
 </template>
 
 <script setup lang="ts">
-import MinusIcon from './assets/icons/MinusIcon.vue';
-import PlusIcon from './assets/icons/PlusIcon.vue';
-import ControlButton from './components/ui/control-button/ControlButton.vue';
+
 import { useCounterStore } from './stores/counter';
 
 

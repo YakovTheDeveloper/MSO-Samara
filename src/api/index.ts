@@ -7,10 +7,14 @@ export type ApiResponse<T> =
 
 
 export function getBattles(): Promise<ApiResponse<BattleType[]>> {
-    return apiClient.get('/battles')
+    return apiClient.get('/battles', {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
 }
 
-// export function getOneBattle(): Promise<BattleType> {
-//     return apiClient.get('/battles')
-// }
+export function getOneBattle(id: number): Promise<ApiResponse<BattleType>> {
+    return apiClient.get(`/battles/${id}`)
+}
 

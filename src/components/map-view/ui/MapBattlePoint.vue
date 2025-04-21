@@ -1,14 +1,12 @@
 <template>
     <div :class='["map-battle-point", props.isActive && "map-battle-point_active"]'>
         <div class="map-battle-point-icon">
-            <component :is="BattleIcon" :style="iconStyles" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import BattleIcon from '@/assets/icons/BattleIcon.vue';
-import BattleIconActive from '@/assets/icons/BattleIconActive.vue';
+
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -20,7 +18,6 @@ const iconStyles = computed(() => {
     return { width: '128px', height: '128px' }
 })
 
-const IconComponent = computed(() => props.isActive ? BattleIconActive : BattleIcon)
 
 </script>
 

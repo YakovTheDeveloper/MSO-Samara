@@ -1,0 +1,30 @@
+.btn {
+    background-color: #D65D89;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 22px;
+    border-radius: 45px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &-s {
+        padding: 15px;
+        height: 70px;
+    }
+
+    &-l {
+        padding: 30px;
+    }
+
+    &-secondary {
+        color: var(--color-pink);
+        border: 3px solid var(--color-pink);
+        background-color: transparent;
+        padding: 15px 38px;
+        width: fit-content;
+        border-radius: 45px;
+    }
+}

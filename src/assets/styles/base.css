@@ -1,25 +1,10 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-
-  --color-white: rgb(255, 255, 255);
-  --color-black-primary: rgba(38, 38, 38, 1);
-  --color-black-secondary: rgba(79, 79, 79, 1);
-  --color-black-third: #B0B0B0;
-  --container-padding: 80px;
-
-
-  --z-index-battle-mark: 5;
-  --z-index-battle-description: 5;
-  --z-index-popup-description-short: 10;
-  --z-index-popup-description-full: 10;
-
-
+  --color-black: #252525;
+  --color-pink: #D65D89;
+  --color-gray: #F6F6F6;
 }
 
-html {
-  width: 3840px;
-  height: 2160px;
-}
+html {}
 
 *,
 *::before,
@@ -31,19 +16,28 @@ html {
 }
 
 body {
-  /* min-height: 100vh; */
-  color: var(--color-black-primary);
-  background: var(--color-background);
-  /* overflow: hidden; */
 
-  font-family: 'Roboto Slab', serif;
-  font-size: 32px;
-  width: 3840px;
-  height: 2160px;
+  color: var(--color-black);
+}
 
+html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Arial;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+}
+
+a {
+  text-decoration: none;
 }
 
 main {
@@ -53,11 +47,17 @@ main {
 }
 
 button {
-  text-transform: uppercase;
-  font-weight: 700;
   background-color: transparent;
   border: none;
   font-size: inherit;
   font-family: inherit;
   cursor: pointer;
+}
+
+.section-mt-s {
+  margin-top: 42px;
+}
+
+.section-mt-l {
+  margin-top: 68px;
 }

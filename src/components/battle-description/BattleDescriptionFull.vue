@@ -3,7 +3,7 @@
         <div class="battle-description-full-bg" :style="bgImageStyle" />
         <h1 class="title l red-gradient">
             <ControlButton size="big" variant="star" @click="backHandler">
-                <ArrowIcon />
+                <!-- <ArrowIcon /> -->
             </ControlButton> {{ store.currentBattle.value?.title }}
         </h1>
         <div class="battle-description-full__top">
@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import ArrowIcon from '@/assets/icons/ArrowIcon.vue';
 import { useBattlesStore, useFlowsStore } from '@/stores/counter';
 import { storeToRefs } from 'pinia';
 import ControlButton from '../ui/control-button/ControlButton.vue';

@@ -39,6 +39,8 @@ const getBattlePositionStyle = (location: string) => {
     };
 };
 
+//http://fitting-room-nerchinsk.itlabs.top/
+
 const sizes = computed(() => {
     return {
         transform: `scale(${1 * store.sizeCoefficient.value})`
@@ -54,10 +56,10 @@ const sizes = computed(() => {
 <style lang="scss" scoped>
 .map {
     position: relative;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:after {
-        // content: '';
+        content: '';
         position: fixed;
         bottom: 0;
         left: 0;

@@ -1,6 +1,6 @@
 <template>
     <div class="map-logo">
-        <img src="@/assets/img/logo.png" alt="Logo">
+        <img alt="Logo">
         <p class="map-logo-text">КАРТА</p>
     </div>
 </template>
