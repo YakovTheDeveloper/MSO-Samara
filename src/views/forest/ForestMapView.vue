@@ -5,6 +5,7 @@
             class="map-battle" :style="getBattlePositionStyle(battle.location)">
             <!-- <MapBattlePoint :is-active="battle.id === battleStore.currentBattle.value?.id" /> -->
         </span>
+        <slot></slot>
     </div>
 </template>
 

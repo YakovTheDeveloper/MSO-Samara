@@ -1,8 +1,8 @@
 <template>
-    <div :class="['search-input', $attrs.class]">
+    <div :class="['search-input', $attrs.class]" @click="inputRef?.focus()">
         <SearchIcon />
         <input :value="$props.modelValue" type="text" :placeholder="inputPlaceholder" @focus="onFocus"
-            @blur="inputPlaceholder = defaultPlaceholder" @input="onInput" />
+            @blur="inputPlaceholder = defaultPlaceholder" @input="onInput" ref="inputRef" />
         <button v-show="showClearButton" @click="onClear">
             <CrossIcon />
         </button>
@@ -21,6 +21,7 @@ const attrs = useAttrs()
 const props = defineProps<{
     modelValue: string
 }>()
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const emit = defineEmits(['update:modelValue'])
 const showClearButton = computed(() => props.modelValue.length > 0)

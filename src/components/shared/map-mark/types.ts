@@ -1,0 +1,1 @@
+export type MapMarkVariant = 'current' | 'numeric' | 'default'
