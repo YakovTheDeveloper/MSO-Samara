@@ -1,6 +1,5 @@
 <template>
-    <div :style="sizes" class="map" @mousedown="startDrag" @mousemove="dragImage" @mouseup="stopDrag"
-        @mouseleave="stopDrag">
+    <div :style="sizes" class="map">
         <MapLogo />
         <img src="/map.png" draggable="false" class="map-img" />
         <span v-for="(battle, index) in battleStore.battles.value" :key="index" @click="chooseBattleHandler(battle)"
@@ -12,7 +11,6 @@
 
 <script setup lang="ts">
 
-import BattleIcon from '@/assets/icons/BattleIcon.vue';
 import { useBattlesStore, useCounterStore, useFlowsStore } from '@/stores/counter';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
@@ -20,9 +18,7 @@ import MapLogo from './ui/MapLogo.vue';
 import MapBattlePoint from './ui/MapBattlePoint.vue';
 import { parseCoords } from '@/utils/parseCoords';
 import { MAP_HEIGHT, MAP_WIDTH } from '@/constants';
-import { useDrag } from './composable/useDrag';
 
-const { startDrag, dragImage, stopDrag, imageStyles } = useDrag();
 
 const store = storeToRefs(useCounterStore())
 const battleStore = storeToRefs(useBattlesStore())
@@ -39,16 +35,11 @@ const getBattlePositionStyle = (location: string) => {
     };
 };
 
-//http://fitting-room-nerchinsk.itlabs.top/
 
 const sizes = computed(() => {
     return {
         transform: `scale(${1 * store.sizeCoefficient.value})`
     }
-    // return {
-    //     width: `${100 * store.sizeCoefficient.value}%`,
-    //     height: `${100 * store.sizeCoefficient.value}%`
-    // };
 });
 
 </script>
