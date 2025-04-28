@@ -1,9 +1,9 @@
 <template>
   <div class="forest">
     <button class="back-btn btn btn-s">Назад</button>
-    <ForestMapView :size-coefficient="sizeCoefficient">
+    <MapView :size-coefficient="sizeCoefficient" img-src="/forest/forest-map.png">
       <ForestMapMarks @click="onMarkClick" :marks="MARKS" />
-    </ForestMapView>
+    </MapView>
 
     <template v-if="keyboard.inputModel">
       <SearchInput
@@ -42,7 +42,6 @@
 
 <script setup lang="ts">
 import SearchInput from '@/components/shared/search/SearchInput.vue'
-import ForestMapView from './ForestMapView.vue'
 import { computed, ref, watchEffect } from 'vue'
 import Keyboard from '@/components/shared/keyboard/Keyboard.vue'
 import { useKeyboard } from '@/composables/useKeyboard'
@@ -53,6 +52,7 @@ import { MARKS } from './data'
 import Modal from '@/components/shared/modal/Modal.vue'
 import ModalContent from '@/components/shared/modal-content/ModalContent.vue'
 import { useMapScale } from '@/composables/useMapScale'
+import MapView from '@/components/map-view/MapView.vue'
 
 const { decrement, increment, sizeCoefficient } = useMapScale()
 const keyboard = useKeyboard()

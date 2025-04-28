@@ -102,6 +102,7 @@ const modules = [Navigation, Pagination]
 
 .swiper-main {
   height: 100%;
+  border-radius: 24px;
 
   &-item {
     img {
@@ -142,9 +143,9 @@ const modules = [Navigation, Pagination]
   right: 24px;
   &:after {
     position: absolute;
-    bottom: -200px;
+    bottom: -300px;
     width: 108px;
-    height: 643px;
+    height: 743px;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 }
@@ -153,9 +154,9 @@ const modules = [Navigation, Pagination]
   left: 24px;
   &:after {
     position: absolute;
-    bottom: -200px;
+    bottom: -300px;
     width: 108px;
-    height: 643px;
+    height: 743px;
     background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 }

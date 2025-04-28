@@ -12,7 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import Slider from './slider/Slider.vue';
+import Slider from '../slider/Slider.vue';
+
+
 
 defineProps<{
     title: string

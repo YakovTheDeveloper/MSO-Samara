@@ -6,9 +6,17 @@
   --color-blue: rgba(29, 112, 183, 1);
   --color-blue-alpha: rgba(29, 112, 183, 0.8);
 
+  --color-blue-2: rgba(39, 174, 228, 1);
+  --color-blue-3: rgba(44, 93, 166, 1);
+
   --border-radius-s: 24px;
 
   --box-shadow-s: 0px 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+#app.vertical{
+  width: 1080px;
+  height: 1920px;
 }
 
 html {}
@@ -72,4 +80,8 @@ button {
 
 .section-mt-l {
   margin-top: 68px;
+}
+
+.container-padding{
+  padding: 80px;
 }
