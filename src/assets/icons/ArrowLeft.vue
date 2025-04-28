@@ -1,7 +1,11 @@
 <template>
-    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M11.5395 18.8331C10.5702 17.8032 10.5702 16.1967 11.5395 15.1669L21.3754 4.71618C21.8816 4.17835 22.728 4.1527 23.2658 4.6589C23.8036 5.1651 23.8293 6.01145 23.3231 6.54929L13.4871 17L23.3231 27.4507C23.8293 27.9885 23.8036 28.8349 23.2658 29.3411C22.728 29.8473 21.8816 29.8216 21.3754 29.2838L11.5395 18.8331Z"
-            fill="white" />
-    </svg>
+  <svg width="12" height="23" viewBox="0 0 12 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M10 2.16699L2 11.5003L10 20.8337"
+      stroke="white"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
 </template>
