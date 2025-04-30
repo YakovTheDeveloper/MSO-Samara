@@ -3,7 +3,13 @@ export type MapMark = {
   title: string
   description: string
   images: string[]
+  point: Point
+  area?: MapArea
 }
+
+export type MapMarkForest = {
+  mapTitle: string
+} & MapMark
 
 export type Point = {
   x: number
@@ -13,14 +19,25 @@ export type Point = {
 export type MapArea = Point[]
 
 export type Map = {
-  file: string
-  points: {
-    x: number
-    y: number
-    objectId: string
-  }[]
-  areas: {
-    points: MapArea
-    objectId: string
-  }[]
+  map: string
+  youAreHerePoint: Point
+}
+
+export type MapMarkCd2 = MapMark & {
+  responsibleDescription: string
+  qrTitle: string
+  qr: string
+  phone: string
+  email: string
+  canOpen: boolean
+  headquarters: Headquarters[]
+}
+
+export type Headquarters = {
+  title: string
+  description: string
+  qr: string
+  directorFullName: string
+  phone: string
+  email: string
 }

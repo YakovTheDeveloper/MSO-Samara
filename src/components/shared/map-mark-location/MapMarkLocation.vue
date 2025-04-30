@@ -12,8 +12,8 @@ import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     location: string | Point
-    mapHeight: number
-    mapWidth: number
+    mapHeight?: number
+    mapWidth?: number
   }>(),
   {
     mapHeight: 1080,
@@ -24,7 +24,7 @@ const props = withDefaults(
 const position = computed(() => {
   let finalCoords = props.location
   if (typeof finalCoords === 'object') {
-    finalCoords = `${finalCoords.x}, ${finalCoords.y}`
+    finalCoords = `${finalCoords?.x}, ${finalCoords?.y}`
   }
   const [x, y] = parseCoords(finalCoords)
   const percentTop = (x / props.mapHeight) * 100

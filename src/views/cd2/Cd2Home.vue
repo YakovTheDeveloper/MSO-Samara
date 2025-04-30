@@ -2,15 +2,15 @@
   <div class="cd1home">
     <MapView img-src="/cd2/map.png" :size-coefficient="sizeCoefficient">
       <MapMarkLocation
-        v-for="mark in MARKS"
-        :location="mark.location"
-        @click="store.currentMarkId.value = mark.id"
+        v-for="mark in store.marksData"
+        :location="mark.point"
+        @click="store.chooseMark(mark.ulid)"
       >
         <span class="map-mark">{{ mark.title }}</span>
       </MapMarkLocation>
     </MapView>
-    <Modal :is-open="Boolean(store.currentMark.value)" @close="onModalClose">
-      <Cd2ModalContent @close="onModalClose" />
+    <Modal :is-open="Boolean(store.currentMark)" @close="store.resetCurrentMark">
+      <Cd2ModalContent @close="store.resetCurrentMark" :data="store.currentMark" />
     </Modal>
     <MapScaleControls @decrement="decrement" @increment="increment" />
   </div>
@@ -21,24 +21,17 @@ import MapView from '@/components/map-view/MapView.vue'
 import MapMarkLocation from '@/components/shared/map-mark-location/MapMarkLocation.vue'
 import { useMapScale } from '@/composables/useMapScale'
 import MapScaleControls from '@/MapScaleControls.vue'
-import { MARKS, useCounterStore } from './data'
-import { computed, ref, watchEffect } from 'vue'
 import Modal from '@/components/shared/modal/Modal.vue'
 import Cd2ModalContent from './Cd2ModalContent.vue'
 import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
+import { useStore } from './store'
+import { watchEffect } from 'vue'
 
-const store = storeToRefs(useCounterStore())
-const route = useRoute()
-
-// const coordsMapSize = computed(() => {
-//   const shouldVerticalLayout = route.path === '/cd2vertical'
-//   if (shouldVerticalLayout) return [1080, 1920]
-//   return [1920, 1080]
-// })
-
-const onModalClose = () => (store.currentMarkId.value = -1)
 const { decrement, increment, sizeCoefficient } = useMapScale()
+
+const store = useStore()
+
+watchEffect(() => console.log(`output->mapStore`, store))
 </script>
 
 <style scoped lang="scss">

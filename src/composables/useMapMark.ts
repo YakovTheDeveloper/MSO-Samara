@@ -16,11 +16,12 @@ export const useMapMark = <MP extends Map, MRKS extends MapMark>(
 
   const resetCurrentMark = () => (currentMarkId.value = '')
   const chooseMark = (markId: string) => (currentMarkId.value = markId)
+
   const mapAreas = computed(() => {
     if (!mapsData.value) return []
-    return (mapsData.value as Map).areas.map(({ objectId, points }) => ({
-      id: objectId,
-      points,
+    return marksData.value.map(({ ulid, area }) => ({
+      id: ulid,
+      points: area,
     }))
   })
 

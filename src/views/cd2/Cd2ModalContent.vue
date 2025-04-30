@@ -1,20 +1,14 @@
 <template>
   <div class="modal-content">
     <div>
-      <h1 class="title">Название</h1>
+      <h1 class="title">{{ title }}</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur. Sed magna sodales faucibus faucibus. Tellus cras
-        eget dictumst posuere ut. Pellentesque imperdiet nunc viverra habitasse feugiat ut. Lacus
-        lacus quisque nunc massa ultricies. Ac quis dolor arcu ut phasellus egestas turpis varius.
-        Adipiscing malesuada vestibulum in erat aliquam dictum est. Turpis pretium magna vel elit
-        sagittis mattis aenean dictum nisi. Fermentum tellus massa orci odio fermentum ultrices quis
-        varius. Tellus lorem phasellus mi eget. Aliquet sagittis id suspendisse mi felis velit
-        suspendisse pellentesque arcu. Faucibus vitae posuere proin vel est non
+        {{ description }}
       </p>
     </div>
     <div>
       <h2 class="title">Ответственные за добровольчество</h2>
-      <p>Lorem ipsum dolor sit amet consectetur.</p>
+      <p>{{ responsibleDescription }}</p>
     </div>
     <div class="btns">
       <button class="btn btn-s btn-more" @click="onMore">Подробнее</button>
@@ -24,9 +18,15 @@
 </template>
 
 <script setup lang="ts">
+import type { MapMarkCd2 } from '@/entities'
 import { useRoute, useRouter } from 'vue-router'
 
 defineEmits(['close'])
+const props = defineProps<{
+  data: MapMarkCd2
+}>()
+
+const { title, description, responsibleDescription } = props.data
 
 const route = useRoute()
 

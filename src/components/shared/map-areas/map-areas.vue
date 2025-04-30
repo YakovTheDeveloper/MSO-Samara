@@ -4,7 +4,7 @@
       <polygon
         v-for="{ id, points } in areas"
         :key="id"
-        :points="points.map((p) => `${p.x},${p.y}`).join(' ')"
+        :points="(points || []).map((p) => `${p.x},${p.y}`).join(' ')"
         stroke="rgba(214, 93, 137, 1)"
         fill="rgba(214, 93, 137, 0.2)"
         stroke-width="4"
@@ -21,7 +21,7 @@ import type { MapArea } from '@/entities'
 defineProps<{
   areas: {
     id: string
-    points: MapArea
+    points?: MapArea 
   }[]
 }>()
 const emit = defineEmits<{

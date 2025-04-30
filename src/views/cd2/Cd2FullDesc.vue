@@ -1,31 +1,32 @@
 <template>
   <div class="container container-padding">
-    <Header button-text="Закрыть" :title="store.currentMark.value?.title || ''" />
+    <Header button-text="Закрыть" :title="store.currentMark?.title || ''" />
     <div class="main">
       <div class="text-desc">
         <div>
           <h2 class="title">Описание</h2>
-          <p>{{ store.currentMark.value?.desc }}</p>
+          <p>{{ store.currentMark?.description }}</p>
         </div>
         <div>
           <h2 class="title">Ответственные за добровольчество</h2>
+          <p>{{ store.currentMark?.responsibleDescription }}</p>
         </div>
       </div>
       <div class="rest-desc">
-        <div v-if="store.currentMark.value?.gallery" class="rest-desc__gallery">
-          <Slider :photos="store.currentMark.value?.gallery" />
+        <div v-if="store.currentMark?.images" class="rest-desc__gallery">
+          <Slider :photos="store.currentGallery" />
         </div>
         <div class="rest-desc-info">
           <div class="rest-desc-info-item">Группа Вконтакте</div>
           <div class="rest-desc-info-item">
             <label class="rest-desc-info-item-label">Номер</label>
-            <span class="rest-desc-info-item-text">8 000 000 00 00</span>
+            <span class="rest-desc-info-item-text">{{ store.currentMark?.phone }}</span>
           </div>
           <div class="rest-desc-info-item">
             <label class="rest-desc-info-item-label">Почта</label>
-            <span class="rest-desc-info-item-text">Example@ex.ru</span>
+            <span class="rest-desc-info-item-text">{{ store.currentMark?.email }}</span>
           </div>
-          <button class="rest-desc-info-button">СПИСОК ШТАБОВ</button>
+          <button class="rest-desc-info-button" @click="onMore">СПИСОК ШТАБОВ</button>
         </div>
       </div>
     </div>
@@ -35,10 +36,14 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import Header from './shared/Header.vue'
-import { useCounterStore } from './data'
 import Slider from '@/components/shared/slider/Slider.vue'
+import { useStore } from './store'
+import { useRoute, useRouter } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
 
-const store = storeToRefs(useCounterStore())
+const onMore = () => router.push(`list`)
+const store = useStore()
 </script>
 
 <style scoped lang="scss">

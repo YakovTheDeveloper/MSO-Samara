@@ -3,9 +3,17 @@
     <button class="back-btn btn btn-s">Назад</button>
     <MapView
       :size-coefficient="sizeCoefficient"
-      :img-src="getServerImgUrl(store.mapsData.value?.file || '')"
+      :img-src="getServerImgUrl(store.mapsData.value?.map || '')"
     >
-      <ForestMapMarks @click="store.chooseMark" :marks="store.mapsData.value?.points || []" />
+      <MapMarkLocation
+        v-for="mark in store.marksData.value"
+        :location="mark.point"
+        @click="store.chooseMark(mark.ulid)"
+      >
+        <MapMark :variant="1212" :label="mark.mapTitle">
+          {{ mark.variant === 'numeric' ? mark.value : null }}
+        </MapMark>
+      </MapMarkLocation>
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>
     <Search :data="store.marksData.value" />
@@ -23,7 +31,6 @@
 
 <script setup lang="ts">
 import MapScaleControls from '@/MapScaleControls.vue'
-import ForestMapMarks from './ForestMapMarks.vue'
 import Modal from '@/components/shared/modal/Modal.vue'
 import ModalContent from '@/components/shared/modal-content/ModalContent.vue'
 import { useMapScale } from '@/composables/useMapScale'
@@ -33,6 +40,8 @@ import Search from '@/components/shared/search/Search.vue'
 import { useMapMark } from '@/composables/useMapMark'
 import { getServerImgUrl } from '@/utils/getServerImgUrl'
 import MapAreas from '@/components/shared/map-areas/map-areas.vue'
+import MapMarkLocation from '@/components/shared/map-mark-location/MapMarkLocation.vue'
+import MapMark from '@/components/shared/map-mark/MapMark.vue'
 
 const store = useMapMark(getForestStoryMaps, getForestStoryMapMarks)
 const { decrement, increment, sizeCoefficient } = useMapScale()
