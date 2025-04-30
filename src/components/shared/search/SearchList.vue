@@ -41,7 +41,7 @@ defineProps<{
     }
 
     &__content {
-        height: 252px;
+        max-height: 252px;
         overflow-y: auto;
 
         &-item {

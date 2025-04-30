@@ -1,16 +1,26 @@
-export type BattleType = {
-    id: number;
-    title: string;
-    members: string[];
-    location: string;
-    images: {
-        id: number;
-        image: string;
-    }[];
-    description: string;
-    map: {
-        id: number;
-        title: string;
-        image: string;
-    };
-};
+export type MapMark = {
+  ulid: string
+  title: string
+  description: string
+  images: string[]
+}
+
+export type Point = {
+  x: number
+  y: number
+}
+
+export type MapArea = Point[]
+
+export type Map = {
+  file: string
+  points: {
+    x: number
+    y: number
+    objectId: string
+  }[]
+  areas: {
+    points: MapArea
+    objectId: string
+  }[]
+}

@@ -140,22 +140,22 @@ const modules = [Navigation, Pagination]
 }
 
 .swiper-button-next {
-  right: 24px;
+  right: 48px;
   &:after {
     position: absolute;
     bottom: -300px;
-    width: 108px;
+    width: 138px;
     height: 743px;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 }
 
 .swiper-button-prev {
-  left: 24px;
+  left: 48px;
   &:after {
     position: absolute;
     bottom: -300px;
-    width: 108px;
+    width: 138px;
     height: 743px;
     background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   }

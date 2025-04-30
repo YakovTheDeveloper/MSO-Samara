@@ -37,16 +37,6 @@ const route = useRoute()
 //   return [1920, 1080]
 // })
 
-watchEffect(() => {
-  const shouldVerticalLayout = route.path === '/cd2vertical'
-  const appElement = document.getElementById('app')
-  if (shouldVerticalLayout) {
-    appElement?.classList.add('vertical')
-  } else {
-    appElement?.classList.remove('vertical')
-  }
-})
-
 const onModalClose = () => (store.currentMarkId.value = -1)
 const { decrement, increment, sizeCoefficient } = useMapScale()
 </script>

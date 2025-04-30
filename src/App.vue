@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useBattlesStore } from './stores/counter';
-import { getServerImgUrl } from './utils/getServerImgUrl';
+import { onMounted, watchEffect } from 'vue'
+import { getServerImgUrl } from './utils/getServerImgUrl'
+import { useRoute } from 'vue-router'
 
-const { getBattlesHandler } = useBattlesStore()
-
-onMounted(() => {
-  getBattlesHandler().then(battles => {
-    if (!battles) return
-
-    battles.forEach(battle => {
-      battle.images.forEach(({ image }) => {
-        const imgElement = document.createElement('img')
-        imgElement.src = getServerImgUrl(image)
-      })
-    })
-
-  })
-
+const route = useRoute()
+watchEffect(() => {
+  console.log(`output->route.path`,route.path)
+  const shouldVerticalLayout = route.path.includes('cd2vertical')
+  const appElement = document.getElementById('app')
+  if (shouldVerticalLayout) {
+    appElement?.classList.add('vertical')
+  } else {
+    appElement?.classList.remove('vertical')
+  }
 })
 
+// onMounted(() => {
+//   getBattlesHandler().then(battles => {
+//     if (!battles) return
 
+//     battles.forEach(battle => {
+//       battle.images.forEach(({ image }) => {
+//         const imgElement = document.createElement('img')
+//         imgElement.src = getServerImgUrl(image)
+//       })
+//     })
+
+//   })
+
+// })
 </script>
 
 <template>
@@ -28,10 +36,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-main {}
+main {
+}
 
 img {
   user-select: none;
-
 }
 </style>

@@ -33,6 +33,9 @@ const goBack = () => router.back()
 .btn {
   width: 293px;
 }
+h1 {
+  text-transform: uppercase;
+}
 .header {
   display: grid;
   grid-template-columns: 357px 1fr 357px;

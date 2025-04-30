@@ -30,6 +30,11 @@ const iconComponent = computed(() => variantToIconComponent[props.variant])
 .map-mark {
   &-inner {
     position: relative;
+
+    width: 50px;
+    height: 50px;
+    background-color: rgb(55, 0, 255);
+    border-radius: 50%;
   }
 
   &-text {

@@ -5,12 +5,13 @@
 </template>
 
 <script setup lang="ts">
+import type { Point } from '@/entities'
 import { parseCoords } from '@/utils/parseCoords'
 import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    location: string
+    location: string | Point
     mapHeight: number
     mapWidth: number
   }>(),
@@ -21,7 +22,11 @@ const props = withDefaults(
 )
 
 const position = computed(() => {
-  const [x, y] = parseCoords(props.location)
+  let finalCoords = props.location
+  if (typeof finalCoords === 'object') {
+    finalCoords = `${finalCoords.x}, ${finalCoords.y}`
+  }
+  const [x, y] = parseCoords(finalCoords)
   const percentTop = (x / props.mapHeight) * 100
   const percentLeft = (y / props.mapWidth) * 100
 
@@ -35,5 +40,6 @@ const position = computed(() => {
 <style scoped lang="scss">
 .map-mark-location {
   position: absolute;
+  z-index: var(--z-index-marks);
 }
 </style>
