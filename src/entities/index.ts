@@ -9,6 +9,7 @@ export type MapMark = {
 
 export type MapMarkForest = {
   mapTitle: string
+  mapTitleType:  'number' | 'text'
 } & MapMark
 
 export type Point = {

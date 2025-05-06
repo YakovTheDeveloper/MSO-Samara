@@ -4,7 +4,11 @@
       <slot></slot>
     </span>
     <component :is="iconComponent" class="map-mark-icon"></component>
-    <span v-if="props.label" class="map-mark-label map-mark-text-style">{{ props.label }}</span>
+    <span
+      v-if="props.label"
+      :class="['map-mark-label', 'map-mark-text-style', `map-mark-label_${props.variant}`]"
+      >{{ props.label }}</span
+    >
   </div>
 </template>
 
@@ -13,17 +17,23 @@ import MapMarkCurrentIcon from '@/assets/icons/MapMarkCurrentIcon.vue'
 import MapMarkDefaultIcon from '@/assets/icons/MapMarkDefaultIcon.vue'
 import MapMarkNumericIcon from '@/assets/icons/MapMarkNumericIcon.vue'
 import { computed } from 'vue'
-import type { MapMarkVariant } from './types'
+import type { MapMarkForest } from '@/entities'
 
 const props = defineProps<{
-  variant: MapMarkVariant
+  variant: MapMarkForest['mapTitleType'] | 'current'
   label?: string
 }>()
 const variantToIconComponent = {
   current: MapMarkCurrentIcon,
-  numeric: MapMarkNumericIcon,
-  default: MapMarkDefaultIcon,
+  number: MapMarkNumericIcon,
+  text: MapMarkDefaultIcon,
 }
+// const variantToIconSizeStyle = {
+//   current: { width: '42px', height: '62px' },
+//   number: { width: '42px', height: '42px' },
+//   text: { width: '42px', height: '42px' },
+// }
+// const iconSizes = computed(() => variantToIconComponent[props.variant])
 const iconComponent = computed(() => variantToIconComponent[props.variant])
 </script>
 
@@ -32,9 +42,9 @@ const iconComponent = computed(() => variantToIconComponent[props.variant])
   &-inner {
     position: relative;
 
-    width: 50px;
-    height: 50px;
-    background-color: rgb(55, 0, 255);
+    // width: 50px;
+    // height: 50px;
+    // background-color: rgb(55, 0, 255);
     border-radius: 50%;
   }
 
@@ -59,14 +69,17 @@ const iconComponent = computed(() => variantToIconComponent[props.variant])
 
   &-label {
     position: absolute;
-    bottom: -40px;
     right: 50%;
-    transform: translateX(50%);
-  }
 
-  &-icon {
-  }
+    &_number {
+      bottom: 50%;
+      transform: translateX(50%) translateY(50%);
+    }
 
-  
+    &_text {
+      bottom: -40px;
+      transform: translateX(50%);
+    }
+  }
 }
 </style>

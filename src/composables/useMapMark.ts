@@ -34,6 +34,10 @@ export const useMapMark = <MP extends Map, MRKS extends MapMark>(
     )
   })
 
+  const youAreHerePoint = computed(() => {
+    return mapsData.value?.youAreHerePoint || { x: 0, y: 0 }
+  })
+
   onMounted(() => {
     getMarksCb().then((res) => {
       if (res.isError || !res.data) return
@@ -54,5 +58,6 @@ export const useMapMark = <MP extends Map, MRKS extends MapMark>(
     marksData,
     mapsData,
     mapAreas,
+    youAreHerePoint,
   }
 }

@@ -10,9 +10,12 @@
         :location="mark.point"
         @click="store.chooseMark(mark.ulid)"
       >
-        <MapMark :variant="1212" :label="mark.mapTitle">
-          {{ mark.variant === 'numeric' ? mark.value : null }}
-        </MapMark>
+        <MapMark :variant="mark.mapTitleType" :label="mark.mapTitle"/>
+      </MapMarkLocation>
+      <MapMarkLocation
+        :location="store.youAreHerePoint.value"
+      >
+        <MapMark variant="current"/>
       </MapMarkLocation>
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>

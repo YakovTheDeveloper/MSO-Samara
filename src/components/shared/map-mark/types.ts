@@ -1,1 +1,1 @@
-export type MapMarkVariant = 'current' | 'numeric' | 'default'
+export type MapMarkVariant = 'number' | 'text'
