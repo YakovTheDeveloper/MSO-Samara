@@ -2,7 +2,10 @@
     <div class="search-list">
         <p class="search-list-title">Результаты поиска</p>
         <ul class="search-list__content scrollbar" v-if="data.length">
-            <li class="search-list__content-item" v-for="item in data">{{ item.title }}</li>
+            <li class="search-list__content-item" v-for="item in data" @click="onListItemClick(item.ulid)"
+                :key="item.ulid">{{ item.title
+                }}
+            </li>
         </ul>
         <p class="search-list-not-found" v-else>
             Ничего не найдено
@@ -13,7 +16,8 @@
 <script setup lang="ts">
 
 defineProps<{
-    data: { title: string }[]
+    data: { title: string, ulid: string }[]
+    onListItemClick: (id: string) => void
 }>()
 
 </script>

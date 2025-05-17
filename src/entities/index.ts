@@ -9,7 +9,12 @@ export type MapMark = {
 
 export type MapMarkForest = {
   mapTitle: string
-  mapTitleType:  'number' | 'text'
+  mapTitleType: 'number' | 'text'
+} & MapMark
+
+export type MapMarkCd1 = {
+  "number": number,
+  "mapUlid": string,
 } & MapMark
 
 export type Point = {
@@ -23,6 +28,8 @@ export type Map = {
   map: string
   youAreHerePoint: Point
 }
+
+export type MapCd1 = { ulid: string, title: string } & Map
 
 export type MapMarkCd2 = MapMark & {
   responsibleDescription: string

@@ -1,28 +1,20 @@
 <template>
   <div class="search">
-    <SearchInput
-      class="search-input"
-      v-model="keyboard.inputModel.value"
-      @focus="keyboard.onFocus"
-    />
+    <SearchInput class="search-input" v-model="keyboard.inputModel.value" @focus="keyboard.onFocus" />
     <teleport to="body">
       <div :class="['keyboard', keyboard.showKeyboard.value ? 'show' : 'hide']">
-        <Keyboard
-          :show="keyboard.showKeyboard.value"
-          @onChange="keyboard.onChange"
-          @onKeyPress="keyboard.onKeyPress"
-          :input="keyboard.inputModel.value"
-          @onClose="keyboard.closeKeyboard"
-        />
+        <Keyboard :show="keyboard.showKeyboard.value" @onChange="keyboard.onChange" @onKeyPress="keyboard.onKeyPress"
+          :input="keyboard.inputModel.value" @onClose="keyboard.closeKeyboard" />
       </div>
     </teleport>
-    <SearchList v-if="shouldSearchShow" :data="filtered" />
+    <SearchList v-if="shouldSearchShow" :data="filtered" :onListItemClick="onListItemClick" />
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { title: string }[]
+  data: { title: string, ulid: string }[]
+  onListItemClick: (id: string) => void
 }>()
 
 import { useKeyboard } from '@/composables/useKeyboard'
@@ -48,6 +40,7 @@ const filtered = computed(() => {
   position: absolute;
   top: 80px;
   right: 80px;
+  width: 642px;
 }
 
 .keyboard {

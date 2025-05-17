@@ -17,7 +17,11 @@
           <Slider :photos="store.currentGallery" />
         </div>
         <div class="rest-desc-info">
-          <div class="rest-desc-info-item">Группа Вконтакте</div>
+          <div class="rest-desc-info-item">
+            <img :src="getServerImgUrl(store.currentMark?.qr)" alt=""
+              :style="{ height: '100%', aspectRatio: 1, marginRight: '10px' }">
+            {{ store.currentMark?.qrTitle }}
+          </div>
           <div class="rest-desc-info-item">
             <label class="rest-desc-info-item-label">Номер</label>
             <span class="rest-desc-info-item-text">{{ store.currentMark?.phone }}</span>
@@ -39,6 +43,7 @@ import Header from './shared/Header.vue'
 import Slider from '@/components/shared/slider/Slider.vue'
 import { useStore } from './store'
 import { useRoute, useRouter } from 'vue-router'
+import { getServerImgUrl } from '@/utils/getServerImgUrl'
 const router = useRouter()
 const route = useRoute()
 
@@ -130,7 +135,7 @@ const store = useStore()
       &:first-child {
         grid-column: span 2;
         align-items: center;
-        text-transform: uppercase;
+        // text-transform: uppercase;
         flex-direction: row;
       }
 

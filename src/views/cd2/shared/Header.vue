@@ -33,15 +33,21 @@ const goBack = () => router.back()
 .btn {
   width: 293px;
 }
+
 h1 {
   text-transform: uppercase;
 }
+
 .header {
   display: grid;
   grid-template-columns: 357px 1fr 357px;
   margin-bottom: 64px;
 
   .vertical & {
+    display: none;
+  }
+
+  &-vertical {
     display: none;
   }
 
@@ -61,6 +67,7 @@ h1 {
     margin-left: auto;
   }
 }
+
 h1 {
   font-size: 38px;
   color: var(--color-black);
