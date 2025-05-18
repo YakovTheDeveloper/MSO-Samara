@@ -52,6 +52,11 @@ const store = useStore()
 </script>
 
 <style scoped lang="scss">
+.vertical .container-padding {
+  padding: 48px;
+  height: 100%;
+}
+
 .title {
   margin-bottom: 12px;
   font-size: 30px;

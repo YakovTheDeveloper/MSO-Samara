@@ -2,7 +2,7 @@
   <div class="list container container-padding">
     <Header button-text="Назад" title="Список штабов" />
     <div class="list-items">
-      <div class="list-item" v-for="item in store.currentMark?.headquarters">
+      <div class="list-item" v-for="item in pagination.paginatedItems.value" :key="item.directorFullName">
         <div class="col">
           <h2 class="title">{{ item.title }}</h2>
           <p>{{ item.description }}</p>
@@ -28,7 +28,8 @@
         </div>
       </div>
     </div>
-    <PaginationNavigation />
+    <PaginationNavigation @prev="pagination.prev" @next="pagination.next" :current="pagination.currentPage.value"
+      :total="pagination.totalPages.value" />
   </div>
 </template>
 
@@ -39,15 +40,25 @@ import Header from './shared/Header.vue'
 import { getServerImgUrl } from '@/utils/getServerImgUrl';
 import { useOfflinePagination } from '@/composables/useOfflinePagination';
 import PaginationNavigation from '@/components/shared/pagination/PaginationNavigation.vue';
+import { computed, ref, watchEffect } from 'vue';
 
 const store = useStore()
 
-const pagination = useOfflinePagination(store.currentMark?.headquarters || [])
+const headquarters = computed(() => store.currentMark?.headquarters || [])
+
+const pagination = useOfflinePagination(headquarters)
+
 
 
 </script>
 
 <style scoped lang="scss">
+.vertical .container-padding {
+  padding: 48px;
+  height: 100%;
+  flex-direction: column;
+}
+
 .title {
   font-size: 18px;
   line-height: 110%;
@@ -63,6 +74,7 @@ const pagination = useOfflinePagination(store.currentMark?.headquarters || [])
 }
 
 .list {
+  display: flex;
   font-size: 16px;
 
   &-items {

@@ -26,6 +26,7 @@ export const useState = (
     const mapAreas = computed(() => marksAndAreas.mapAreas.value.filter((data) => data.mapUlid === currentMap.value?.ulid))
     const marksData = computed(() => marksAndAreas.marksData.value.filter((data) => data.mapUlid === currentMap.value?.ulid))
 
+
     onMounted(() => {
         getCd1Maps().then((res) => {
             if (res.isError || !res.data) return

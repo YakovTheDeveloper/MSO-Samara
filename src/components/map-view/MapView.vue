@@ -24,11 +24,14 @@ const sizes = computed(() => {
 .map {
   position: relative;
   transition: all 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
 
   &-img {
     width: 100%;
     height: 100%;
     z-index: 1;
+    // object-fit: contain;
   }
 
   &-battle {

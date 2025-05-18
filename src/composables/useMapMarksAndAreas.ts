@@ -17,9 +17,10 @@ export const useMapMarksAndAreas = <MRKS extends MapMark>(
 
     const mapAreas = computed(() => {
         if (!marksData.value) return []
-        return marksData.value.map(({ ulid, area, mapUlid = null }) => ({
+        return marksData.value.map(({ ulid, area, mapUlid = null, number = null }) => ({
             id: ulid,
             points: area,
+            number,
             mapUlid
         }))
     })

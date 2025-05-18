@@ -1,27 +1,26 @@
 <template>
     <div class="pagination">
-        <button @click="$emit('prev')" :disabled="$props.current === 1">
+        <button @click="emit('prev')" :disabled="current <= 1">
             <ArrowLeft />
         </button>
-        <button @click="$emit('next')" :disabled="$props.current === $props.total">
+        <button @click="emit('next')" :disabled="current >= total">
             <ArrowRight />
         </button>
     </div>
 </template>
 
-
 <script setup lang="ts">
 import ArrowLeft from '@/assets/icons/ArrowLeft.vue';
 import ArrowRight from '@/assets/icons/ArrowRight.vue';
 
-defineProps<{
-    current: number,
-    total: number
-}>()
+const props = defineProps<{
+    current: number;
+    total: number;
+}>();
 
-defineEmits(['prev', 'next'])
-
+const emit = defineEmits(['prev', 'next']);
 </script>
+
 
 <style scoped lang="scss">
 .pagination {
@@ -29,6 +28,7 @@ defineEmits(['prev', 'next'])
     gap: 24px;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
 
     button {
         display: flex;

@@ -1,11 +1,8 @@
 <template>
   <div class="cd1home">
     <MapView img-src="/cd2/map.png" :size-coefficient="sizeCoefficient">
-      <MapMarkLocation
-        v-for="mark in store.marksData"
-        :location="mark.point"
-        @click="store.chooseMark(mark.ulid)"
-      >
+      <MapMarkLocation :key="mark.ulid" v-for="mark in store.marksData" :location="mark.point"
+        @click="mark.canOpen ? store.chooseMark(mark.ulid) : null">
         <span class="map-mark">{{ mark.title }}</span>
       </MapMarkLocation>
     </MapView>
