@@ -19,7 +19,7 @@
       </MapMarkLocation>
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>
-    <Search :data="store.marksData.value" />
+    <Search :data="store.marksData.value" @list-item-click="store.chooseMark"/>
     <MapScaleControls @decrement="decrement" @increment="increment" />
     <Modal :isOpen="Boolean(store.currentMark.value)" @close="store.resetCurrentMark">
       <ModalContent

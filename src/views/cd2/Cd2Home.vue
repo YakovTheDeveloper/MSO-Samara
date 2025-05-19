@@ -1,8 +1,17 @@
 <template>
-  <div class="cd1home">
-    <MapView img-src="/cd2/map.png" :size-coefficient="sizeCoefficient">
-      <MapMarkLocation :key="mark.ulid" v-for="mark in store.marksData" :location="mark.point"
-        @click="mark.canOpen ? store.chooseMark(mark.ulid) : null">
+  <div class="cd2home">
+    <MapView
+      img-src="/cd2/map.png"
+      :size-coefficient="sizeCoefficient"
+      class="cd2-map"
+      :initImgSizes="[1080, 1080]"
+    >
+      <MapMarkLocation
+        :key="mark.ulid"
+        v-for="mark in store.marksData"
+        :location="mark.point"
+        @click="mark.canOpen ? store.chooseMark(mark.ulid) : null"
+      >
         <span class="map-mark">{{ mark.title }}</span>
       </MapMarkLocation>
     </MapView>
@@ -32,8 +41,16 @@ watchEffect(() => console.log(`output->mapStore`, store))
 </script>
 
 <style scoped lang="scss">
-.cd1home {
+.cd2-map {
+
+}
+.cd2home {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
 }
 
 .map-mark {

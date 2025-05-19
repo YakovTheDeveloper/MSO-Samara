@@ -56,7 +56,6 @@ const pagination = useOfflinePagination(headquarters)
 .vertical .container-padding {
   padding: 48px;
   height: 100%;
-  flex-direction: column;
 }
 
 .title {
@@ -76,6 +75,7 @@ const pagination = useOfflinePagination(headquarters)
 .list {
   display: flex;
   font-size: 16px;
+  flex-direction: column;
 
   &-items {
     display: grid;

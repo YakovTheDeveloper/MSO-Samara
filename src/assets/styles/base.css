@@ -17,12 +17,23 @@
   --z-index-areas: 1;
 }
 
-#app.vertical{
-  width: 1080px;
-  height: 1920px;
+#app{
+  width: 100vw;
+  height: 100vh;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
 }
 
-html {}
+#app.vertical{
+
+}
+
+html, body {
+  min-height: 100%;
+}
 
 *,
 *::before,
@@ -35,7 +46,7 @@ html {}
 }
 
 body {
-
+  width: fit-content;
   color: var(--color-black);
 }
 

@@ -36,7 +36,7 @@ function handleOverlayClick() {
 
 .modal-content {
     width: 868px;
-    max-height: 950px;
+    max-height: 1050px;
     background-color: #FFFFFF;
     border-radius: 60px;
     padding: 48px;

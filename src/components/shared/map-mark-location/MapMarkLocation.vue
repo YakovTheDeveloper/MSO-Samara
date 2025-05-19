@@ -1,5 +1,5 @@
 <template>
-  <div class="map-mark-location" :style="position">
+  <div v-if="props.location?.length !== 0" class="map-mark-location" :style="position">
     <slot></slot>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    location: string | Point
+    location: string | Point | null
     mapHeight?: number
     mapWidth?: number
   }>(),
@@ -22,13 +22,15 @@ const props = withDefaults(
 )
 
 const position = computed(() => {
+  console.log(`output->location`, props.location)
+  console.log(`output->props.mapWidth`,props.mapWidth)
   let finalCoords = props.location
   if (typeof finalCoords === 'object') {
     finalCoords = `${finalCoords?.x}, ${finalCoords?.y}`
   }
   const [x, y] = parseCoords(finalCoords)
-  const percentTop = (x / props.mapHeight) * 100
-  const percentLeft = (y / props.mapWidth) * 100
+  const percentLeft = (x / props.mapWidth) * 100
+  const percentTop = (y / props.mapHeight) * 100
 
   return {
     left: `${percentLeft}%`,
@@ -39,6 +41,7 @@ const position = computed(() => {
 
 <style scoped lang="scss">
 .map-mark-location {
+  transform: translate(-50%, -50%);
   position: absolute;
   z-index: var(--z-index-marks);
 }

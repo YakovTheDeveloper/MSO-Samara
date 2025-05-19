@@ -1,19 +1,28 @@
 <template>
   <div class="search">
-    <SearchInput class="search-input" v-model="keyboard.inputModel.value" @focus="keyboard.onFocus" />
-    <teleport to="body">
-      <div :class="['keyboard', keyboard.showKeyboard.value ? 'show' : 'hide']">
-        <Keyboard :show="keyboard.showKeyboard.value" @onChange="keyboard.onChange" @onKeyPress="keyboard.onKeyPress"
-          :input="keyboard.inputModel.value" @onClose="keyboard.closeKeyboard" />
-      </div>
-    </teleport>
+    <SearchInput
+      class="search-input"
+      v-model="keyboard.inputModel.value"
+      @focus="keyboard.onFocus"
+    />
+
+    <div :class="['keyboard', keyboard.showKeyboard.value ? 'show' : 'hide']">
+      <Keyboard
+        :show="keyboard.showKeyboard.value"
+        @onChange="keyboard.onChange"
+        @onKeyPress="keyboard.onKeyPress"
+        :input="keyboard.inputModel.value"
+        @onClose="keyboard.closeKeyboard"
+      />
+    </div>
+
     <SearchList v-if="shouldSearchShow" :data="filtered" :onListItemClick="onListItemClick" />
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { title: string, ulid: string }[]
+  data: { title: string; ulid: string }[]
   onListItemClick: (id: string) => void
 }>()
 
@@ -37,19 +46,19 @@ const filtered = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  position: absolute;
+  position: fixed;
   top: 80px;
   right: 80px;
   width: 642px;
 }
 
 .keyboard {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 385px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: 100vw;
   gap: 20px;
   display: flex;
   flex-direction: column;

@@ -11,12 +11,18 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { watchEffect } from 'vue';
+
+const props = defineProps<{
   current: number
 }>()
 defineEmits<{
   onStageChange: [stage: number]
 }>()
+
+watchEffect(() => {
+  console.log(`output->props.current`,props.current)
+})
 </script>
 
 <style scoped lang="scss">

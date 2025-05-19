@@ -8,10 +8,17 @@
     </MapView>
     <Search :data="store.marksData.value" @list-item-click="store.chooseMark" />
     <MapScaleControls @decrement="decrement" @increment="increment" />
-    <Cd1Stages :current="store.currentStage.value" @on-stage-change="store.onStageChange" />
+    <Cd1Stages
+      :current="store.currentStage.value"
+      @on-stage-change="(value) => store.onStageChange(value)"
+    />
     <Modal :isOpen="Boolean(store.currentMark.value)" @close="store.resetCurrentMark">
-      <ModalContent :gallery="store.currentGallery.value" :title="store.currentMark?.value?.title"
-        :desc="store.currentMark?.desc" @close="store.resetCurrentMark" />
+      <ModalContent
+        :gallery="store.currentGallery.value"
+        :title="store.currentMark?.value?.title"
+        :desc="store.currentMark?.desc"
+        @close="store.resetCurrentMark"
+      />
     </Modal>
   </div>
 </template>
@@ -38,12 +45,15 @@ watchEffect(() => {
   console.log(store.youAreHerePoint.value)
 })
 
-
 const { decrement, increment, sizeCoefficient } = useMapScale()
 </script>
 
 <style scoped lang="scss">
 .cd1home {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
 }
 </style>
