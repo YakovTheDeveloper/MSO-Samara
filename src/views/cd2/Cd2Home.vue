@@ -1,10 +1,10 @@
 <template>
   <div class="cd2home">
     <MapView
-      img-src="/cd2/map.png"
+      :img-src="getServerImgUrl(store.mapsData?.map || '')"
       :size-coefficient="sizeCoefficient"
       class="cd2-map"
-      :initImgSizes="[1080, 1080]"
+
     >
       <MapMarkLocation
         :key="mark.ulid"
@@ -32,6 +32,7 @@ import Cd2ModalContent from './Cd2ModalContent.vue'
 import { storeToRefs } from 'pinia'
 import { useStore } from './store'
 import { watchEffect } from 'vue'
+import { getServerImgUrl } from '@/utils/getServerImgUrl'
 
 const { decrement, increment, sizeCoefficient } = useMapScale()
 
@@ -42,7 +43,6 @@ watchEffect(() => console.log(`output->mapStore`, store))
 
 <style scoped lang="scss">
 .cd2-map {
-
 }
 .cd2home {
   position: relative;
@@ -50,7 +50,6 @@ watchEffect(() => console.log(`output->mapStore`, store))
   align-items: center;
   justify-content: center;
   margin: auto;
-
 }
 
 .map-mark {

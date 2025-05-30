@@ -4,14 +4,14 @@
       {{ $props.buttonText }}
     </button>
     <h1>{{ $props.title }}</h1>
-    <img src="/cd2/logo.png" alt="" />
+    <img src="/images/cd2/logo.png" alt="" />
   </div>
   <div class="header-vertical">
     <div class="row">
       <button class="btn btn-s btn-secondary btn-secondary_2" @click="goBack">
         {{ $props.buttonText }}
       </button>
-      <img src="/cd2/logo.png" alt="" />
+      <img src="/images/cd2/logo.png" alt="" />
     </div>
     <h1>{{ $props.title }}</h1>
   </div>

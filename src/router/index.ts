@@ -22,6 +22,6 @@ const routes: RouteRecordRaw[] = Object.entries(routeComponents).map(([path, com
 }))
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
