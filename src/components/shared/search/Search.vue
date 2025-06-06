@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { title: string; ulid: string }[]
+  data: { title: string; ulid: string; mapTitle: string }[]
   onListItemClick: (id: string) => void
 }>()
 
@@ -37,7 +37,10 @@ const shouldSearchShow = computed(() => !!keyboard.inputModel.value)
 
 const filtered = computed(() => {
   const inputValue = keyboard.inputModel.value?.toLowerCase().trim() || ''
-  return props.data.filter(({ title }) => title.toLowerCase().includes(inputValue))
+  return props.data.filter(
+    ({ title, mapTitle }) =>
+      title.toLowerCase().includes(inputValue) || mapTitle.toLowerCase().includes(inputValue),
+  )
 })
 </script>
 

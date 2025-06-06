@@ -4,16 +4,24 @@
       :img-src="getServerImgUrl(store.mapsData?.map || '')"
       :size-coefficient="sizeCoefficient"
       class="cd2-map"
-
     >
-      <MapMarkLocation
+      <!-- <MapMarkLocation
         :key="mark.ulid"
-        v-for="mark in store.marksData"
+        v-for="mark in nonOverlappingPositions"
         :location="mark.point"
         @click="mark.canOpen ? store.chooseMark(mark.ulid) : null"
       >
-        <span class="map-mark">{{ mark.title }}</span>
-      </MapMarkLocation>
+        {{ mark.title }}
+      </MapMarkLocation> -->
+      <MapMarkLocationCity
+        :key="mark.ulid"
+        v-for="mark in nonOverlappingPositions"
+        :location="mark.point"
+        @click="mark.canOpen ? store.chooseMark(mark.ulid) : null"
+        :positionType="mark.positionType"
+      >
+        {{ mark.title }}
+      </MapMarkLocationCity>
     </MapView>
     <Modal :is-open="Boolean(store.currentMark)" @close="store.resetCurrentMark">
       <Cd2ModalContent @close="store.resetCurrentMark" :data="store.currentMark" />
@@ -31,12 +39,60 @@ import Modal from '@/components/shared/modal/Modal.vue'
 import Cd2ModalContent from './Cd2ModalContent.vue'
 import { storeToRefs } from 'pinia'
 import { useStore } from './store'
-import { watchEffect } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { getServerImgUrl } from '@/utils/getServerImgUrl'
+import MapMarkLocationCity from '@/components/shared/map-mark-location/MapMarkLocationCity.vue'
 
 const { decrement, increment, sizeCoefficient } = useMapScale()
 
 const store = useStore()
+
+const nonOverlappingPositions = computed(() => {
+  if (!store.marksData) return []
+  return assignNonOverlappingPositions(store.marksData)
+})
+
+type PositionType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+
+interface Marker {
+  title: string
+  point: {
+    x: number
+    y: number
+  }
+  positionType?: PositionType
+}
+
+function assignNonOverlappingPositions(markers: Marker[]): Marker[] {
+  const assigned: Marker[] = []
+
+  const offsetDistance = 60 // Threshold in coordinate units (tune as needed)
+
+  const checkOverlap = (a: Marker, b: Marker) => {
+    const dx = Math.abs(a.point.x - b.point.x)
+    const dy = Math.abs(a.point.y - b.point.y)
+    return dx < offsetDistance && dy < offsetDistance
+  }
+
+  const positionOptions: PositionType[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+
+  for (const marker of markers) {
+    let chosen: PositionType = 'top-left'
+    for (const pos of positionOptions) {
+      const virtual: Marker = { ...marker, positionType: pos }
+      const isOverlapping = assigned.some((other) => checkOverlap(virtual, other))
+
+      if (!isOverlapping) {
+        chosen = pos
+        break
+      }
+    }
+
+    assigned.push({ ...marker, positionType: chosen })
+  }
+
+  return assigned
+}
 
 watchEffect(() => console.log(`output->mapStore`, store))
 </script>
@@ -50,15 +106,5 @@ watchEffect(() => console.log(`output->mapStore`, store))
   align-items: center;
   justify-content: center;
   margin: auto;
-}
-
-.map-mark {
-  border: 4px solid var(--color-blue);
-  color: var(--color-blue);
-  padding: 12px 24px;
-  font-weight: 700;
-  font-size: 22px;
-  background-color: #ffffff;
-  border-radius: 24px;
 }
 </style>

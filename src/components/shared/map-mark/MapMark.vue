@@ -52,12 +52,21 @@ const iconComponent = computed(() => variantToIconComponent[props.variant])
     text-shadow:
       -2px -2px 0 #d65d89,
       2px -2px 0 #d65d89,
-      -2px 2px 0 #d65d89,
-      2px 2px 0 #d65d89;
+      -3px 2px 0 #d65d89,
+      2px 2px 0 #d65d89,
+      0 -2px 0 #d65d89,
+      -2px 0 0 #d65d89,
+      2px 0 0 #d65d89,
+      0 2px 0 #d65d89;
+
     font-size: 22px;
     font-weight: 900;
     line-height: 100%;
     color: #fff;
+
+    // -webkit-text-stroke: 1.5px #d65d89; /* Chrome, Safari, Edge */
+    // text-stroke: 1.5px #d65d89; /* future compatibility */
+    // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   &-text {
@@ -70,6 +79,12 @@ const iconComponent = computed(() => variantToIconComponent[props.variant])
   &-label {
     position: absolute;
     right: 50%;
+    display: block;
+
+    &:not(.map-mark-label_number) {
+      width: 230px;
+      text-align: center;
+    }
 
     &_number {
       bottom: 50%;

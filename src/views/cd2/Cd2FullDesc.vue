@@ -13,13 +13,19 @@
         </div>
       </div>
       <div class="rest-desc">
-        <div v-if="store.currentMark?.images" class="rest-desc__gallery">
+        <div
+          v-if="store.currentMark?.images && store.currentMark?.images.length > 0"
+          class="rest-desc__gallery"
+        >
           <Slider :photos="store.currentGallery" />
         </div>
         <div class="rest-desc-info">
           <div class="rest-desc-info-item">
-            <img :src="getServerImgUrl(store.currentMark?.qr)" alt=""
-              :style="{ height: '100%', aspectRatio: 1, marginRight: '10px' }">
+            <img
+              :src="getServerImgUrl(store.currentMark?.qr)"
+              alt=""
+              :style="{ height: '100%', aspectRatio: 1, marginRight: '10px' }"
+            />
             {{ store.currentMark?.qrTitle }}
           </div>
           <div class="rest-desc-info-item">
@@ -47,7 +53,7 @@ import { getServerImgUrl } from '@/utils/getServerImgUrl'
 const router = useRouter()
 const route = useRoute()
 
-const onMore = () => router.push(`list`)
+const onMore = () => router.push(`${route.path}/list`)
 const store = useStore()
 </script>
 

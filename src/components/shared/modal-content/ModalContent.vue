@@ -1,6 +1,6 @@
 <template>
   <div class="modal-content">
-    <div v-if="gallery" class="modal-content-gallery">
+    <div v-if="gallery && gallery.length > 0" class="modal-content-gallery">
       <Slider :photos="gallery" />
     </div>
     <div class="modal-content-text">

@@ -10,10 +10,10 @@ const routeComponents: Record<string, any> = {
   '/cd1': Cd1Home,
   '/cd2/': Cd2Home,
   '/cd2/desc': Cd2FullDesc,
-  '/cd2/list': Cd2List,
+  '/cd2/desc/list': Cd2List,
   '/cd2vertical/': Cd2Home,
   '/cd2vertical/desc': Cd2FullDesc,
-  '/cd2vertical/list': Cd2List,
+  '/cd2vertical/desc/list': Cd2List,
 }
 
 const routes: RouteRecordRaw[] = Object.entries(routeComponents).map(([path, component]) => ({

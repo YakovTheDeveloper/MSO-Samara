@@ -30,7 +30,7 @@ const { title, description, responsibleDescription } = props.data
 
 const route = useRoute()
 
-const onMore = () => router.push(`${route.path}/desc`)
+const onMore = () => router.push(route.path.replace(/\/$/, '') + '/desc')
 
 const router = useRouter()
 </script>

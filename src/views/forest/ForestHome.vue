@@ -1,6 +1,5 @@
 <template>
   <div class="forest">
-    <button class="back-btn btn btn-s">Назад</button>
     <MapView
       :size-coefficient="sizeCoefficient"
       :img-src="getServerImgUrl(store.mapsData.value?.map || '')"
