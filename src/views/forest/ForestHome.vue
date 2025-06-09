@@ -17,7 +17,11 @@
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>
     <Search :data="store.marksData.value" @list-item-click="store.chooseMark" />
-    <MapScaleControls @decrement="decrement" @increment="increment" />
+    <MapScaleControls
+      @decrement="decrement"
+      @increment="increment"
+      class="map-scale-controls-fixed"
+    />
     <Modal :isOpen="Boolean(store.currentMark.value)" @close="store.resetCurrentMark">
       <ModalContent
         :gallery="store.currentGallery.value"
@@ -51,6 +55,7 @@ const { container, decrement, increment, sizeCoefficient } = useMapScale()
 
 <style scoped lang="scss">
 .forest {
+  overflow: hidden;
   position: relative;
 }
 
@@ -61,4 +66,6 @@ const { container, decrement, increment, sizeCoefficient } = useMapScale()
   width: 273px;
   z-index: 1;
 }
+
+
 </style>

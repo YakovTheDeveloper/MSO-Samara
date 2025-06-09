@@ -1,5 +1,15 @@
 <template>
-  <div class="map-scalable" :style="mapStyle">
+  <div
+    class="map-scalable"
+    :style="mapStyle"
+    @touchstart="map.onTouchStart"
+    @touchmove="map.onTouchMove"
+    @touchend="map.onTouchEnd"
+    @mousedown="map.onMouseDown"
+    @mousemove="map.onMouseMove"
+    @mouseup="map.onMouseUp"
+    @mouseleave="map.onMouseUp"
+  >
     <img
       :src="props.imgSrc"
       draggable="false"
@@ -12,7 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useMap } from './composable/useMap'
 
 const props = defineProps<{
   sizeCoefficient: number
@@ -23,16 +34,32 @@ const props = defineProps<{
 const defaultInitImgSizes: [number, number] = [1920, 1080]
 const initImgSizes = computed(() => props.initImgSizes || defaultInitImgSizes)
 
-const mapStyle = computed(() => ({
-  transform: `scale(${props.sizeCoefficient})`,
-}))
+const containerWidth = ref(window.innerWidth)
+const containerHeight = ref(window.innerHeight)
+
+const map = useMap({
+  containerWidth,
+  containerHeight,
+  mapWidth: computed(() => initImgSizes.value[0]),
+  mapHeight: computed(() => initImgSizes.value[1]),
+  sizeCoefficient: computed(() => props.sizeCoefficient),
+})
+
+onMounted(() => {
+  window.addEventListener('resize', () => {
+    containerWidth.value = window.innerWidth
+    containerHeight.value = window.innerHeight
+  })
+})
+
+const mapStyle = map.mapStyle
 </script>
 
 <style lang="scss" scoped>
 .map-scalable {
   display: inline-block;
   transform-origin: top left; // Anchor scaling from top-left
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 }
 
 .map-img {
