@@ -1,30 +1,33 @@
 import { ref, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
-
 const MAX = 16
 const MIN = 10
 const BASE = 10
 const STEP = 2
 
-export const useCounterStore = defineStore('counter', () => {
-  const sizeCoefficient = ref(BASE)
+export const useMapScaleStore = defineStore('map-scale', () => {
+  const zoomLevel = ref(1) // 1 = 100%
+  const zoomIn = () => {
+    zoomLevel.value = Math.min(zoomLevel.value + 0.1, 3)
+  }
+
+  const zoomOut = () => {
+    zoomLevel.value = Math.max(zoomLevel.value - 0.1, 0.5)
+  }
 
   function increment() {
-    if (sizeCoefficient.value === MAX) return
-    sizeCoefficient.value += STEP
+    zoomIn()
+    return
   }
 
   function decrement() {
-    if (sizeCoefficient.value === MIN) return
-    sizeCoefficient.value -= STEP
+    zoomOut()
+    return
   }
 
-  const sizeCoefficientDisplay = computed(() => +(sizeCoefficient.value / BASE).toFixed(1))
-
-  return { sizeCoefficient: sizeCoefficientDisplay, increment, decrement }
+  return { sizeCoefficient: zoomLevel, increment, decrement }
 })
-
 
 // export const useBattlesStore = defineStore('battles', () => {
 
@@ -63,12 +66,11 @@ export const useCounterStore = defineStore('counter', () => {
 type Popup = 'description-short' | 'description-full'
 
 export const usePopupStore = defineStore('popup', () => {
-
   const currentPopup = ref<Popup | null>(null)
   const setCurrentPopup = (popup: Popup) => {
     currentPopup.value = popup
   }
-  const closePopup = () => currentPopup.value = null
+  const closePopup = () => (currentPopup.value = null)
 
   return { setCurrentPopup, currentPopup, closePopup }
 })

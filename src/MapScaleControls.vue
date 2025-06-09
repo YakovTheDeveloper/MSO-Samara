@@ -3,6 +3,7 @@
     <button @click="$emit('increment')">
       <PlusIcon />
     </button>
+    <slot></slot>
     <button @click="$emit('decrement')">
       <MinusIcon />
     </button>

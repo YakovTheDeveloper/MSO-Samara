@@ -44,9 +44,11 @@ import { getServerImgUrl } from '@/utils/getServerImgUrl'
 import MapAreas from '@/components/shared/map-areas/map-areas.vue'
 import MapMarkLocation from '@/components/shared/map-mark-location/MapMarkLocation.vue'
 import MapMark from '@/components/shared/map-mark/MapMark.vue'
+import { useMapScaleStore } from '@/stores/counter'
 
 const store = useMapMark(getForestStoryMaps, getForestStoryMapMarks)
-const { decrement, increment, sizeCoefficient } = useMapScale()
+
+const { decrement, increment, sizeCoefficient } = useMapScaleStore()
 </script>
 
 <style scoped lang="scss">
