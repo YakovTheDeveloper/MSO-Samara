@@ -1,5 +1,5 @@
 <template>
-  <div class="cd2home">
+  <div class="cd2home" ref="container">
     <MapView
       :img-src="getServerImgUrl(store.mapsData?.map || '')"
       :size-coefficient="sizeCoefficient"
@@ -43,7 +43,7 @@ import { computed, watchEffect } from 'vue'
 import { getServerImgUrl } from '@/utils/getServerImgUrl'
 import MapMarkLocationCity from '@/components/shared/map-mark-location/MapMarkLocationCity.vue'
 
-const { decrement, increment, sizeCoefficient } = useMapScale()
+const { decrement, increment, sizeCoefficient,container } = useMapScale()
 
 const store = useStore()
 

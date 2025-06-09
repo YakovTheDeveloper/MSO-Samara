@@ -6,38 +6,7 @@ import { useCounterStore, useMapScaleStore } from './stores/counter'
 import { storeToRefs } from 'pinia'
 const store = storeToRefs(useMapScaleStore())
 
-watchEffect(() => console.log(`output->store.sizeCoefficient`, store.sizeCoefficient))
-const container = ref(null)
-let initialDistance = null
-let initialZoom = 1
 
-const getDistance = (touches) => {
-  const [a, b] = touches
-  return Math.sqrt(Math.pow(a.clientX - b.clientX, 2) + Math.pow(a.clientY - b.clientY, 2))
-}
-
-onMounted(() => {
-  const el = container.value
-
-  el.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 2) {
-      initialDistance = getDistance(e.touches)
-      initialZoom = store.sizeCoefficient.value
-    }
-  })
-
-  el.addEventListener('touchmove', (e) => {
-    if (e.touches.length === 2 && initialDistance) {
-      const newDistance = getDistance(e.touches)
-      const scaleChange = newDistance / initialDistance
-      store.sizeCoefficient.value = Math.min(Math.max(initialZoom * scaleChange, 0.5), 3) // limit zoom
-    }
-  })
-
-  el.addEventListener('touchend', () => {
-    initialDistance = null
-  })
-})
 
 const route = useRoute()
 watchEffect(() => {
@@ -65,14 +34,10 @@ watchEffect(() => {
 //   })
 
 // })
-
-
 </script>
 
 <template>
-  <div ref="container" class="zoom-target" :style="{ transform: `scale(${store.sizeCoefficient.value})` }">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <style scoped>

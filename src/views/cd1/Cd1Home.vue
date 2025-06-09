@@ -1,5 +1,5 @@
 <template>
-  <div class="cd1home">
+  <div class="cd1home" ref="container">
     <MapView :img-src="store.currentMapImage.value" :size-coefficient="sizeCoefficient">
       <MapAreas :areas="store.mapAreas.value" @click="(id) => store.chooseMark(id)" />
       <MapMarkLocation v-if="store.youAreHerePoint.value" :location="store.youAreHerePoint.value">
@@ -45,7 +45,7 @@ watchEffect(() => {
   console.log(store.youAreHerePoint.value)
 })
 
-const { decrement, increment, sizeCoefficient } = useMapScale()
+const { decrement, increment, sizeCoefficient,container } = useMapScale()
 </script>
 
 <style scoped lang="scss">

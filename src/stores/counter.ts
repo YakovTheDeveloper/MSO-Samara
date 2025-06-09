@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
 const MAX = 16
@@ -26,7 +26,39 @@ export const useMapScaleStore = defineStore('map-scale', () => {
     return
   }
 
-  return { sizeCoefficient: zoomLevel, increment, decrement }
+  const container = ref(null)
+  let initialDistance = null
+  let initialZoom = 1
+
+  const getDistance = (touches) => {
+    const [a, b] = touches
+    return Math.sqrt(Math.pow(a.clientX - b.clientX, 2) + Math.pow(a.clientY - b.clientY, 2))
+  }
+
+  // onMounted(() => {
+  //   const el = container.value
+
+  //   el.addEventListener('touchstart', (e) => {
+  //     if (e.touches.length === 2) {
+  //       initialDistance = getDistance(e.touches)
+  //       initialZoom = store.sizeCoefficient.value
+  //     }
+  //   })
+
+  //   el.addEventListener('touchmove', (e) => {
+  //     if (e.touches.length === 2 && initialDistance) {
+  //       const newDistance = getDistance(e.touches)
+  //       const scaleChange = newDistance / initialDistance
+  //       store.sizeCoefficient.value = Math.min(Math.max(initialZoom * scaleChange, 0.5), 3) // limit zoom
+  //     }
+  //   })
+
+  //   el.addEventListener('touchend', () => {
+  //     initialDistance = null
+  //   })
+  // })
+
+  return { container, sizeCoefficient: zoomLevel, increment, decrement }
 })
 
 // export const useBattlesStore = defineStore('battles', () => {

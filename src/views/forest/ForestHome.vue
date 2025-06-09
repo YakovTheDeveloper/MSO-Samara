@@ -1,5 +1,5 @@
 <template>
-  <div class="forest">
+  <div ref="container" class="forest">
     <MapView
       :size-coefficient="sizeCoefficient"
       :img-src="getServerImgUrl(store.mapsData.value?.map || '')"
@@ -9,16 +9,14 @@
         :location="mark.point"
         @click="store.chooseMark(mark.ulid)"
       >
-        <MapMark :variant="mark.mapTitleType" :label="mark.mapTitle"/>
+        <MapMark :variant="mark.mapTitleType" :label="mark.mapTitle" />
       </MapMarkLocation>
-      <MapMarkLocation
-        :location="store.youAreHerePoint.value"
-      >
-        <MapMark variant="current"/>
+      <MapMarkLocation :location="store.youAreHerePoint.value">
+        <MapMark variant="current" />
       </MapMarkLocation>
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>
-    <Search :data="store.marksData.value" @list-item-click="store.chooseMark"/>
+    <Search :data="store.marksData.value" @list-item-click="store.chooseMark" />
     <MapScaleControls @decrement="decrement" @increment="increment" />
     <Modal :isOpen="Boolean(store.currentMark.value)" @close="store.resetCurrentMark">
       <ModalContent
@@ -48,7 +46,7 @@ import { useMapScaleStore } from '@/stores/counter'
 
 const store = useMapMark(getForestStoryMaps, getForestStoryMapMarks)
 
-const { decrement, increment, sizeCoefficient } = useMapScaleStore()
+const { container, decrement, increment, sizeCoefficient } = useMapScale()
 </script>
 
 <style scoped lang="scss">
