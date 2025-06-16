@@ -127,3 +127,8 @@ button:focus{
 .bold{
   font-weight: 700;
 }
+
+.line-break{
+  height: 10px;
+  display: flex;
+}

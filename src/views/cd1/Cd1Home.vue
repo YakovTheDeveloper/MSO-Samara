@@ -16,7 +16,7 @@
       <ModalContent
         :gallery="store.currentGallery.value"
         :title="store.currentMark?.value?.title"
-        :desc="store.currentMark?.desc"
+        :desc="store.currentMark?.value?.description"
         @close="store.resetCurrentMark"
       />
     </Modal>

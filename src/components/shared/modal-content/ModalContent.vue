@@ -5,21 +5,24 @@
     </div>
     <div class="modal-content-text">
       <h1>{{ $props.title }}</h1>
-      <p class="modal-content-desc scrollbar">{{ $props.desc }}</p>
+      <p class="modal-content-desc scrollbar" v-formatted-text="desc"></p>
+      <!-- <p class="modal-content-desc scrollbar" v-html="desc.replace(/\r\n|\r|\n/g, '<br>')"></p> -->
     </div>
     <button class="btn btn-s" @click="$emit('close')">Закрыть</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { watchEffect } from 'vue'
 import Slider from '../slider/Slider.vue'
 
-defineProps<{
+const props = defineProps<{
   title: string
   desc: string
   gallery?: { id: number; src: string }[]
 }>()
 
+watchEffect(() => console.log(`output->props`, props))
 defineEmits(['close'])
 </script>
 
