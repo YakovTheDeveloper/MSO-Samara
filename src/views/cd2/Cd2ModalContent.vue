@@ -42,7 +42,7 @@ const router = useRouter()
   font-size: 38px;
 }
 
-.title h2 {
+h2.title {
   font-size: 30px;
 }
 

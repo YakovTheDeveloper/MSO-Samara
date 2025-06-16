@@ -1,10 +1,12 @@
 <template>
   <div class="search">
-    <SearchInput
-      class="search-input"
-      v-model="keyboard.inputModel.value"
-      @focus="keyboard.onFocus"
-    />
+    <div @click.stop>
+      <SearchInput
+        class="search-input"
+        v-model="keyboard.inputModel.value"
+        @focus="onSearchInputFocus"
+      />
+    </div>
 
     <div :class="['keyboard', keyboard.showKeyboard.value ? 'show' : 'hide']">
       <Keyboard
@@ -16,7 +18,7 @@
       />
     </div>
 
-    <SearchList v-if="shouldSearchShow" :data="filtered" :onListItemClick="onListItemClick" />
+    <SearchList v-if="isListShow" :data="filtered" :onListItemClick="onListItemClick" />
   </div>
 </template>
 
@@ -29,11 +31,11 @@ const props = defineProps<{
 import { useKeyboard } from '@/composables/useKeyboard'
 import Keyboard from '../keyboard/Keyboard.vue'
 import SearchInput from './SearchInput.vue'
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import SearchList from './SearchList.vue'
 
 const keyboard = useKeyboard()
-const shouldSearchShow = computed(() => !!keyboard.inputModel.value)
+const isListShow = ref(false)
 
 const filtered = computed(() => {
   const inputValue = keyboard.inputModel.value?.toLowerCase().trim() || ''
@@ -44,6 +46,17 @@ const filtered = computed(() => {
       number?.toString().includes(inputValue),
   )
 })
+
+const onSearchInputFocus = () => {
+  keyboard.onFocus()
+  if (keyboard.inputModel.value) isListShow.value = true
+}
+watchEffect(() => {
+  if (keyboard.inputModel.value) isListShow.value = true
+})
+const closeOnOutsideClick = () => (isListShow.value = false)
+onMounted(() => document.addEventListener('click', closeOnOutsideClick))
+onUnmounted(() => document.removeEventListener('click', closeOnOutsideClick))
 </script>
 
 <style scoped lang="scss">

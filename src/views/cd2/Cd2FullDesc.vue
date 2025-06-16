@@ -9,7 +9,7 @@
         </div>
         <div>
           <h2 class="title">Ответственные за добровольчество</h2>
-          <p>{{ store.currentMark?.responsibleDescription }}</p>
+          <p class="responsible-text">{{ store.currentMark?.responsibleDescription }}</p>
         </div>
       </div>
       <div class="rest-desc">
@@ -68,6 +68,10 @@ const store = useStore()
   font-size: 30px;
   letter-spacing: 2px;
   font-weight: 700;
+}
+
+.responsible-text {
+  font-size: 26px;
 }
 
 .container {

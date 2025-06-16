@@ -2,11 +2,7 @@
 import { onMounted, ref, watchEffect } from 'vue'
 import { getServerImgUrl } from './utils/getServerImgUrl'
 import { useRoute } from 'vue-router'
-import { useCounterStore, useMapScaleStore } from './stores/counter'
 import { storeToRefs } from 'pinia'
-const store = storeToRefs(useMapScaleStore())
-
-
 
 const route = useRoute()
 watchEffect(() => {

@@ -1,4 +1,4 @@
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 const MAX = 16
 const MIN = 10
@@ -33,37 +33,48 @@ export const useMapScale = () => {
     return Math.sqrt(Math.pow(a.clientX - b.clientX, 2) + Math.pow(a.clientY - b.clientY, 2))
   }
 
+  let touchStartHandler: (e: TouchEvent) => void
+  let touchMoveHandler: (e: TouchEvent) => void
+  let touchEndHandler: (e: TouchEvent) => void
+
   onMounted(() => {
     nextTick(() => {
       const el = container.value
-      if (!el) {
-        console.warn('container ref is null')
-        return
-      }
+      if (!el) return
 
-      el.addEventListener('touchstart', (e) => {
-        console.log(`output->touchstart`,e)
+      touchStartHandler = (e) => {
         if (e.touches.length === 2) {
           initialDistance = getDistance(e.touches)
           initialSize = coefficient.value
         }
-      })
+      }
 
-      el.addEventListener('touchmove', (e) => {
+      touchMoveHandler = (e) => {
         if (e.touches.length === 2 && initialDistance) {
           const newDistance = getDistance(e.touches)
           const scaleChange = newDistance / initialDistance
           const newSize = initialSize * scaleChange
-
-          // Clamp within bounds
           coefficient.value = Math.min(Math.max(newSize, MIN), MAX)
         }
-      })
+      }
 
-      el.addEventListener('touchend', () => {
+      touchEndHandler = () => {
         initialDistance = null
-      })
+      }
+
+      el.addEventListener('touchstart', touchStartHandler)
+      el.addEventListener('touchmove', touchMoveHandler)
+      el.addEventListener('touchend', touchEndHandler)
     })
+  })
+
+  onUnmounted(() => {
+    const el = container.value
+    if (!el) return
+
+    el.removeEventListener('touchstart', touchStartHandler)
+    el.removeEventListener('touchmove', touchMoveHandler)
+    el.removeEventListener('touchend', touchEndHandler)
   })
 
   const sizeCoefficient = computed(() => coefficient.value / BASE)

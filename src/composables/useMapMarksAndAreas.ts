@@ -36,6 +36,7 @@ export const useMapMarksAndAreas = <MRKS extends MapMark>(
 
     onMounted(() => {
         getMarksCb().then((res) => {
+            console.log(`output->res`,res)
             if (res.isError || !res.data) return
             marksData.value = res.data
         })
