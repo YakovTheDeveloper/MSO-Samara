@@ -1,9 +1,6 @@
 <template>
   <div ref="container" class="forest">
-    <MapView
-
-      :img-src="getServerImgUrl(store.mapsData.value?.map || '')"
-    >
+    <MapView :img-src="getServerImgUrl(store.mapsData.value?.map || '')">
       <MapMarkLocation
         v-for="mark in store.marksData.value"
         :location="mark.point"
@@ -17,9 +14,7 @@
       <MapAreas :areas="store.mapAreas.value" />
     </MapView>
     <Search :data="store.marksData.value" @list-item-click="store.chooseMark" />
-    <MapScaleControls
-      class="map-scale-controls-fixed"
-    />
+    <MapScaleControls class="map-scale-controls-fixed" />
     <Modal :isOpen="Boolean(store.currentMark.value)" @close="store.resetCurrentMark">
       <ModalContent
         :gallery="store.currentGallery.value"
@@ -43,11 +38,8 @@ import { getServerImgUrl } from '@/utils/getServerImgUrl'
 import MapAreas from '@/components/shared/map-areas/map-areas.vue'
 import MapMarkLocation from '@/components/shared/map-mark-location/MapMarkLocation.vue'
 import MapMark from '@/components/shared/map-mark/MapMark.vue'
-import { useMapScaleStore } from '@/stores/counter'
 
 const store = useMapMark(getForestStoryMaps, getForestStoryMapMarks)
-
-// const { container, decrement, increment, sizeCoefficient } = useMapScale()
 </script>
 
 <style scoped lang="scss">
@@ -63,6 +55,4 @@ const store = useMapMark(getForestStoryMaps, getForestStoryMapMarks)
   width: 273px;
   z-index: 1;
 }
-
-
 </style>

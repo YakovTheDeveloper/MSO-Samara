@@ -68,7 +68,8 @@ export const useState = () => {
         res.data.forEach(({ ulid }) => {
           getCd1MapMarks(ulid).then((marksRes) => {
             if (!marksRes.isError && marksRes.data) {
-              marksData.value.push(...marksRes.data)
+              console.log(`output-> PUSH 000`, typeof marksRes.data)
+              if (typeof marksRes.data === 'object') marksData.value.push(...marksRes.data)
             }
           })
         })
