@@ -42,14 +42,14 @@ defineEmits(['close'])
   h1 {
     font-size: 38px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: var(--color-black);
   }
 
   &-text {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
 
   &-desc {
