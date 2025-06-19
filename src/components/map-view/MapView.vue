@@ -78,9 +78,10 @@ const mapStyle = map.mapStyle
 
 <style lang="scss" scoped>
 .map-scalable {
+  will-change: transform;
   display: inline-block;
   transform-origin: top left; // Anchor scaling from top-left
-  transition: transform 0.1s ease-in-out;
+  // transition: transform 0.1s ease-in-out;
   touch-action: none; // Absolutely necessary
   user-select: none;
 }

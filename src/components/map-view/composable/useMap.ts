@@ -69,6 +69,7 @@ export const useMap = (props: {
 
   const mapStyle = computed(() => ({
     transform: `translate(${position.value.x}px, ${position.value.y}px) scale(${props.sizeCoefficient.value})`,
+    transition: dragging.value ? 'none' : 'transform 0.3s ease',
   }))
 
   watch(
